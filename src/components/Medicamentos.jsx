@@ -41,7 +41,7 @@ const Medicamentos = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (busqueda.length >= 6) buscarMedicamentos(busqueda);
+      if (busqueda.length >= 3) buscarMedicamentos(busqueda);
       else setMedicamentos([]);
     }, 500);
 
