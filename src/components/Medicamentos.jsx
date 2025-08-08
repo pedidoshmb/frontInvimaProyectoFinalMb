@@ -31,7 +31,6 @@ const Medicamentos = () => {
       }, {});
 
       setMedicamentos(Object.entries(agrupados));
-      console.log(medicamentos);
     } catch (err) {
       setError(`Error al buscar: ${err.message}`);
       console.error("Detalles:", err);
@@ -42,12 +41,39 @@ const Medicamentos = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (busqueda.length >= 3) buscarMedicamentos(busqueda);
+      if (busqueda.length >= 6) buscarMedicamentos(busqueda);
       else setMedicamentos([]);
-    }, 200);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [busqueda]);
+
+  // nueva función para integrar a MongoDB
+  console.log(medicamentos);
+  const integrarProducto = async (med) => {
+    try {
+      const response = await fetch("http://127.0.0.1:3006/api/invima/guardar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          registrosanitario: med.registrosanitario,
+          expediente: med.expediente,
+          descripcioncomercial: med.descripcioncomercial,
+          consecutivocum: med.consecutivocum,
+          estadocum: med.estadocum,
+          producto: med.producto,
+        }),
+      });
+
+      const data = await response.json();
+      alert(data.mensaje || "Guardado");
+    } catch (err) {
+      console.error("Error al guardar:", err);
+      alert("Error al guardar en MongoDB");
+    }
+  };
 
   return (
     <div style={styles.container}>
