@@ -63,46 +63,36 @@ npm install
 cd ../backend
 npm install
 
-```
-
 4️⃣ Configurar variables de entorno
 
-## 4️⃣ Configurar variables de entorno
-
 ---
 
-<img src="docs/archivoENV.png" alt="estructura de carpetas y archivos al final primeros pasos">
+<img src="docs/archivoENV.png" alt="Condiguracion del .ENV">
 
 ---
-
-## .
 
 5️⃣ Ejecutar la aplicación
 
-# En una terminal - backend
+
+🖥️ En una terminal - backend
 
 cd backend
 node index.js
 
-# En otra terminal - frontend
+🖥️ En otra terminal - frontend
 
 cd api-invimareact
 npm run dev
 
 ✨ Ejemplo de uso
 Buscar un medicamento escribiendo mínimo 3 caracteres.
-
 Visualizar la información agrupada.
-
 Presionar "💾 Guardar en MongoDB" para almacenar localmente.
-
 Consultar y administrar medicamentos desde el módulo de administración.
 
 👨‍💻 Autor
 
 Desarrollado por [Mauricio Barrios]
 📧 Contacto: pedidoshmb@gmail.com
-
-```
 
 ```
