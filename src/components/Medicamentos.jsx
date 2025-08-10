@@ -133,27 +133,32 @@ const Medicamentos = () => {
                   key={`${med.registrosanitario}-${index}`}
                   style={styles.registro}
                 >
-                  <p>
-                    <strong>Registro:</strong> {med.registrosanitario}
-                  </p>
-                  <p>
-                    <strong>Expediente:</strong> {med.expediente}
-                  </p>
-                  <p>
-                    <strong>Presentación:</strong> {med.descripcioncomercial}
-                  </p>
-                  <p>
-                    <strong>ConsecutivoCum:</strong> {med.consecutivocum}
-                  </p>
-                  <p>
-                    <strong>Estado:</strong> {med.estadocum}
-                  </p>
-                  <button
-                    style={styles.integrateButton}
-                    onClick={() => integrarProducto(med)}
-                  >
-                    💾 Guardar en MongoDB
-                  </button>
+                  <div>
+                    <p>
+                      <strong>Registro:</strong> {med.registrosanitario}
+                    </p>
+                    <p>
+                      <strong>Expediente:</strong> {med.expediente}
+                    </p>
+                    <p>
+                      <strong>Presentación:</strong> {med.descripcioncomercial}
+                    </p>
+                    <p>
+                      <strong>ConsecutivoCum:</strong> {med.consecutivocum}
+                    </p>
+                    <p>
+                      <strong>Estado:</strong> {med.estadocum}
+                    </p>
+                  </div>
+
+                  <div style={styles.botonesContainer}>
+                    <button
+                      style={styles.integrateButton}
+                      onClick={() => integrarProducto(med)}
+                    >
+                      💾 Guardar en MongoDB
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -261,6 +266,13 @@ const styles = {
     borderRadius: "8px",
     borderLeft: "4px solid #3498db",
     transition: "all 0.3s ease",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "100%",
+  },
+  botonesContainer: {
+    marginTop: "15px",
   },
   integrateButton: {
     padding: "10px 20px",
