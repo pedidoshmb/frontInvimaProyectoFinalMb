@@ -51,48 +51,57 @@ De esta manera, la actualización de información en otros sistemas se vuelve m�
 ```bash
 git clone https://github.com/usuario/mi-proyecto-invima.git
 cd mi-proyecto-invima
+```
 
+### 2️⃣ Instalar dependencias del frontend
 
-2️⃣ Instalar dependencias del frontend
-
+```bash
 cd api-invimareact
 npm install
+```
 
-3️⃣ Instalar dependencias del backend
+### 3️⃣ Instalar dependencias del backend
 
+```bash
 cd ../backend
 npm install
-
-4️⃣ Configurar variables de entorno
-
----
-
-<img src="docs/archivoENV.png" alt="Condiguracion del .ENV">
+```
 
 ---
 
-5️⃣ Ejecutar la aplicación
+## 4️⃣ Configurar variables de entorno
 
+<img src="docs/archivoENV.png" alt="Configuración del archivo .env">
 
-🖥️ En una terminal - backend
+---
 
+## 5️⃣ Ejecutar la aplicación
+
+### 🖥️ En una terminal - backend
+
+```bash
 cd backend
 node index.js
+```
 
-🖥️ En otra terminal - frontend
+### 🖥️ En otra terminal - frontend
 
+```bash
 cd api-invimareact
 npm run dev
+```
 
-✨ Ejemplo de uso
-Buscar un medicamento escribiendo mínimo 3 caracteres.
-Visualizar la información agrupada.
-Presionar "💾 Guardar en MongoDB" para almacenar localmente.
+---
+
+✨ **Ejemplo de uso**  
+Buscar un medicamento escribiendo mínimo 3 caracteres.  
+Visualizar la información agrupada.  
+Presionar "💾 Guardar en MongoDB" para almacenar localmente.  
 Consultar y administrar medicamentos desde el módulo de administración.
+
+---
 
 👨‍💻 Autor
 
-Desarrollado por [Mauricio Barrios]
+Desarrollado por [Mauricio Barrios]  
 📧 Contacto: pedidoshmb@gmail.com
-
-```
