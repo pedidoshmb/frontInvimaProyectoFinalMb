@@ -82,7 +82,7 @@ npm install
 # En una terminal - backend
 
 cd backend
-node start
+node index.js
 
 # En otra terminal - frontend
 
