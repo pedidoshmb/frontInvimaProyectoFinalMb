@@ -65,9 +65,7 @@ npm install
 
 4️⃣ Configurar variables de entorno
 
-<p align="center">
-  <img src="public/archivoENV.jpg" alt="Archivo .env" width="500">
-</p>
+api-invimareact/public/archivoENV.jpg
 
 
 5️⃣ Ejecutar la aplicación
