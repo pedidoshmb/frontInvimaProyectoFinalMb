@@ -65,7 +65,7 @@ npm install
 
 4️⃣ Configurar variables de entorno
 
-![Archivo .env](docs/archivoENV.jpg)
+![Archivo .env](api-invimareact/docs/archivoENV.jpg)
 
 
 
