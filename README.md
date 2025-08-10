@@ -65,12 +65,16 @@ npm install
 
 4️⃣ Configurar variables de entorno
 
+
+
 ## 4️⃣ Configurar variables de entorno
 
+---
 
 
 <img src="docs/archivoENV.png" alt="estructura de carpetas y archivos al final primeros pasos">
 
+---
 ## .
 
 
