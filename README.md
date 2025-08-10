@@ -6,7 +6,7 @@ Este proyecto surge a partir de una problemática detectada al consultar medicam
 El proceso actual es **lento, manual y propenso a errores**, ya que cada vez que se necesita consultar o actualizar un medicamento en otro sistema, se deben realizar pasos repetitivos y poco eficientes.
 
 Con esta aplicación, se agiliza el proceso de búsqueda y gestión de medicamentos, permitiendo **consultar directamente la API pública del INVIMA** y **guardar los datos en una base de datos MongoDB local**.  
-De esta manera, la actualización de información en otros sistemas se vuelve más rápida y confiable.
+De esta manera, la actualización de información en otros sistemas se vuelve más rápida y confiable...
 
 ---
 
