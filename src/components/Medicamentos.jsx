@@ -65,19 +65,26 @@ const Medicamentos = () => {
 
       const data = await response.json();
       Swal.fire({
+        toast: true,
+        position: "top-end",
         icon: data.error ? "error" : "success",
-        title: data.error ? "Error" : "Guardado",
-        text:
-          data.mensaje ||
-          (data.error
-            ? "No se pudo guardar"
-            : "Medicamento Guardado correctamente"),
-        showConfirmButton: true,
-        confirmButtonColor: "#3085d6",
+        title: data.error
+          ? "No se pudo guardar"
+          : "💾 Medicamento guardado en Mongoose Local",
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        background: "#f0f9f4",
+        color: "#2e7d32",
       });
     } catch (err) {
       console.error("Error al guardar:", err);
-      alert("Error al guardar en MongoDB");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo guardar en MongoDB",
+        confirmButtonColor: "#d33",
+      });
     }
   };
 
@@ -156,7 +163,7 @@ const Medicamentos = () => {
                       style={styles.integrateButton}
                       onClick={() => integrarProducto(med)}
                     >
-                      💾 Guardar en MongoDB
+                      💾 Guardar en MongoDB Local
                     </button>
                   </div>
                 </div>
