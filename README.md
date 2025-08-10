@@ -67,7 +67,9 @@ npm install
 
 ## 4️⃣ Configurar variables de entorno
 
-![Archivo .env](https://github.com/pedidoshmb/frontInvimaProyectoFinalMb/raw/master/docs/archivoENV.jpg)
+
+
+<img src="docs/archivoENV.png" alt="estructura de carpetas y archivos al final primeros pasos">
 
 
 
