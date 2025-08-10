@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <div style={{ padding: "20px" }}>
-        <h1>Consumo de API con React + Vite</h1>
+        <h1></h1>
         <Routes>
           <Route path="/" element={<Medicamentos />} />
           <Route path="/admin/medicamentos" element={<AdminMedicamentos />} />

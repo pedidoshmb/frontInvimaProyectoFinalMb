@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 const Medicamentos = () => {
   const navigate = useNavigate();
@@ -13,18 +14,15 @@ const Medicamentos = () => {
       setCargando(true);
       setError(null);
 
-      // Sintaxis correcta para la API de datos.gov.co
       const url = `https://www.datos.gov.co/resource/i7cb-raxc.json?$where=starts_with(lower(producto), lower('${encodeURIComponent(
         query
       )}'))&$limit=1000`;
 
       const response = await fetch(url);
-
       if (!response.ok) throw new Error(`Error ${response.status}`);
 
       const data = await response.json();
 
-      // Agrupa medicamentos por nombre de producto
       const agrupados = data.reduce((acc, med) => {
         const key = med.producto?.trim() || "Sin nombre";
         if (!acc[key]) acc[key] = [];
@@ -50,15 +48,11 @@ const Medicamentos = () => {
     return () => clearTimeout(timer);
   }, [busqueda]);
 
-  // nueva función para integrar a MongoDB
-  console.log(medicamentos);
   const integrarProducto = async (med) => {
     try {
       const response = await fetch("http://127.0.0.1:3006/api/invima/guardar", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           registrosanitario: med.registrosanitario,
           expediente: med.expediente,
@@ -70,31 +64,61 @@ const Medicamentos = () => {
       });
 
       const data = await response.json();
-      alert(data.mensaje || "Guardado");
+      Swal.fire({
+        icon: data.error ? "error" : "success",
+        title: data.error ? "Error" : "Guardado",
+        text:
+          data.mensaje ||
+          (data.error
+            ? "No se pudo guardar"
+            : "Medicamento Guardado correctamente"),
+        showConfirmButton: true,
+        confirmButtonColor: "#3085d6",
+      });
     } catch (err) {
       console.error("Error al guardar:", err);
       alert("Error al guardar en MongoDB");
     }
   };
 
+  // ✅ return dentro de la función
   return (
     <div style={styles.container}>
-      <h2 style={styles.title}>CONSULTA DE MEDICAMENTOS INVIMA</h2>
+      <div style={styles.header}>
+        <h2 style={styles.title}>Consulta de Medicamentos INVIMA</h2>
+        <button
+          onClick={() => navigate("/admin/medicamentos")}
+          style={styles.adminButton}
+        >
+          ⚙️ Admin Medicamentos
+        </button>
+      </div>
 
-      <button
-        onClick={() => navigate("/admin/medicamentos")}
-        style={styles.backButton}
-      >
-        AdminMedicamentos
-      </button>
+      <div style={styles.searchContainer}>
+        <input
+          type="text"
+          placeholder="🔍 Buscar por nombre (mín. 3 caracteres)..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          style={styles.searchInput}
+        />
+      </div>
 
-      <input
-        type="text"
-        placeholder="Buscar por nombre (mín. 3 caracteres)..."
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-        style={styles.searchInput}
-      />
+      {busqueda.length < 3 &&
+        medicamentos.length === 0 &&
+        !cargando &&
+        !error && (
+          <div style={styles.emptyState}>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/482/482631.png"
+              alt="Buscar"
+              style={{ width: "120px", marginBottom: "20px" }}
+            />
+            <p style={{ fontSize: "18px", color: "#666" }}>
+              Escribe al menos 3 caracteres para buscar un medicamento.
+            </p>
+          </div>
+        )}
 
       {cargando && <p style={styles.loading}>Buscando...</p>}
       {error && <p style={styles.error}>{error}</p>}
@@ -123,15 +147,13 @@ const Medicamentos = () => {
                   </p>
                   <p>
                     <strong>Estado:</strong> {med.estadocum}
-                    <br></br>
-                    <br></br>
-                    <button
-                      style={{ marginLeft: "20px" }}
-                      onClick={() => integrarProducto(med)}
-                    >
-                      Guardar En MONGODB
-                    </button>
                   </p>
+                  <button
+                    style={styles.integrateButton}
+                    onClick={() => integrarProducto(med)}
+                  >
+                    💾 Guardar en MongoDB
+                  </button>
                 </div>
               ))}
             </div>
@@ -142,7 +164,7 @@ const Medicamentos = () => {
   );
 };
 
-// Estilos (igual que en la solución anterior)
+// ✅ estilos fuera de la función
 const styles = {
   container: {
     maxWidth: "1200px",
@@ -161,10 +183,13 @@ const styles = {
     gap: "20px",
   },
   title: {
-    color: "#2c3e50",
+    color: "white",
     fontSize: "2rem",
     margin: 0,
-    textShadow: "1px 1px 2px rgba(0,0,0,0.1)",
+    padding: "15px 25px",
+    background: "linear-gradient(90deg, #007bff, #0056b3)",
+    borderRadius: "8px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
   },
   searchContainer: {
     display: "flex",
@@ -179,39 +204,17 @@ const styles = {
     borderRadius: "8px",
     boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
     transition: "all 0.3s ease",
-    "&:focus": {
-      outline: "none",
-      borderColor: "#3498db",
-      boxShadow: "0 2px 8px rgba(52,152,219,0.2)",
-    },
-  },
-  searchButton: {
-    padding: "12px 20px",
-    backgroundColor: "#3498db",
-    color: "white",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontWeight: "bold",
-    transition: "all 0.3s ease",
-    "&:hover": {
-      backgroundColor: "#2980b9",
-      transform: "translateY(-2px)",
-    },
   },
   adminButton: {
-    padding: "12px 20px",
-    backgroundColor: "#2c3e50",
+    padding: "10px 18px",
+    backgroundColor: "#28a745",
     color: "white",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
     fontWeight: "bold",
     transition: "all 0.3s ease",
-    "&:hover": {
-      backgroundColor: "#1a252f",
-      transform: "translateY(-2px)",
-    },
+    fontSize: "15px",
   },
   loading: {
     textAlign: "center",
@@ -237,10 +240,6 @@ const styles = {
     padding: "20px",
     boxShadow: "0 4px 6px rgba(0,0,0,0.05)",
     transition: "transform 0.3s ease",
-    "&:hover": {
-      transform: "translateY(-5px)",
-      boxShadow: "0 6px 12px rgba(0,0,0,0.1)",
-    },
   },
   productName: {
     color: "#2980b9",
@@ -262,9 +261,6 @@ const styles = {
     borderRadius: "8px",
     borderLeft: "4px solid #3498db",
     transition: "all 0.3s ease",
-    "&:hover": {
-      backgroundColor: "#f1f8fe",
-    },
   },
   integrateButton: {
     padding: "10px 20px",
@@ -282,14 +278,17 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: "8px",
-    "&:hover": {
-      backgroundColor: "#219653",
-      transform: "translateY(-2px)",
-      boxShadow: "0 4px 8px rgba(39, 174, 96, 0.4)",
-    },
-    "&:active": {
-      transform: "translateY(0)",
-    },
+  },
+  emptyState: {
+    textAlign: "center",
+    marginTop: "80px",
+    padding: "40px",
+    backgroundColor: "white",
+    borderRadius: "12px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+    maxWidth: "500px",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 };
 
