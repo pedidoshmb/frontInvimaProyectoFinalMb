@@ -65,7 +65,7 @@ npm install
 
 4️⃣ Configurar variables de entorno
 
-![Archivo .env](docs/archivo.ENV.jpg)
+![Archivo .env](docs/archivoENV.jpg)
 
 
 
