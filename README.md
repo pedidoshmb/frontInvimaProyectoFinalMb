@@ -71,7 +71,7 @@ npm install
 
 <img src="docs/archivoENV.png" alt="estructura de carpetas y archivos al final primeros pasos">
 
-
+## .
 
 
 5️⃣ Ejecutar la aplicación
